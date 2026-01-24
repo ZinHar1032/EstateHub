@@ -1,59 +1,145 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🏡 EstateHub – Plateforme de gestion immobilière
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+---
 
-## About Laravel
+## 🧰 Outils et technologies utilisés
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 🔹 Backend
+- **Laravel 11**
+- **PHP**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 🔹 Frontend
+- **HTML5**
+- **CSS3**
+- **Bootstrap**
+- **JavaScript**
+- **Blade (Laravel)**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 🔹 Base de données
+- **MySQL**
+- **phpMyAdmin** (administration et gestion de la base de données)
 
-## Learning Laravel
+### 🔹 Autres outils
+- Laravel Storage (gestion des images)
+- Git & GitHub (gestion de versions)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🎯 Présentation du projet
 
-## Laravel Sponsors
+EstateHub est une application web de gestion immobilière développée avec **Laravel 11**.  
+Elle permet la **consultation**, la **gestion** et la **réservation de biens immobiliers** à travers un système de **rôles et permissions**.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+L’application repose sur trois acteurs principaux :
+- Client
+- Agent immobilier
+- Administrateur
 
-### Premium Partners
+Chaque acteur dispose d’un **parcours de navigation**, de **fonctionnalités spécifiques** et de **droits d’accès contrôlés**.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## 👥 Acteurs du système et fonctionnalités
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 👤 Client (Utilisateur final)
 
-## Code of Conduct
+Le client est un utilisateur souhaitant consulter les biens immobiliers et planifier des visites.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### 🔹 Navigation
+- Accès à la page d’accueil
+- Consultation des **biens validés par l’administrateur**
+- Navigation entre les annonces et les détails des biens
 
-## Security Vulnerabilities
+#### 🔹 Authentification
+- Création d’un compte client
+- Connexion / déconnexion sécurisée
+- Redirection automatique vers la page de connexion lors d’une action protégée
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### 🔹 Fonctionnalités
+- Consulter les biens immobiliers disponibles
+- Voir les détails d’un bien (prix, surface, localisation, images, agent)
+- Réserver un rendez-vous pour visiter un bien
+- Suivre l’état de ses rendez-vous (en attente, accepté, refusé)
 
-## License
+#### 🔹 Sécurité
+- Impossible de réserver une visite sans être connecté
+- Accès limité uniquement aux biens validés
+- Accès contrôlé par middleware d’authentification
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+### 🧑‍💼 Agent immobilier
+
+L’agent est responsable de la gestion des biens immobiliers et du suivi des rendez-vous.
+
+#### 🔹 Navigation
+- Connexion via un compte agent
+- Accès à un menu spécifique agent
+- Navigation centralisée via les pages de gestion
+
+#### 🔹 Gestion des biens
+- Ajouter un bien immobilier
+- Modifier ses propres biens
+- Consulter l’ensemble des biens
+- Visualiser l’état de validation des biens (validé / non validé)
+
+#### 🔹 Gestion des rendez-vous
+- Consulter les rendez-vous liés à ses biens
+- Suivre les demandes de visites des clients
+- Gérer le statut des rendez-vous
+
+#### 🔹 Restrictions
+- Un agent ne peut modifier que ses propres biens
+- Les biens doivent être validés par l’administrateur avant publication
+
+---
+
+### 🛠️ Administrateur
+
+L’administrateur assure la supervision et le contrôle global de la plateforme.
+
+#### 🔹 Navigation
+- Accès sécurisé via un compte administrateur
+- Menu d’administration dédié
+- Vue globale sur le système
+
+#### 🔹 Gestion des données
+- Gérer les catégories de biens
+- Gérer les types de biens immobiliers
+- Structurer les annonces
+
+#### 🔹 Validation
+- Consulter tous les biens ajoutés par les agents
+- Valider ou invalider les biens
+- Garantir que seuls les biens validés sont visibles par les clients
+
+---
+
+## 🔄 Cycle de navigation et de gestion
+
+1. L’agent ajoute un bien immobilier  
+2. L’administrateur valide ou invalide le bien  
+3. Le client consulte les biens validés  
+4. Le client réserve un rendez-vous  
+5. L’agent consulte et gère les rendez-vous  
+6. Le système assure le suivi et la sécurité via les rôles  
+
+---
+
+## ⚙️ Environnement de développement
+
+- PHP >= 8.2
+- Composer
+- MySQL
+- phpMyAdmin
+- Serveur local (XAMPP / WAMP / Laragon)
+- Navigateur web moderne
+
+---
+
+## 🚀 Étapes d’installation
+
+### 1️⃣ Cloner le projet
+```bash
+git clone https://github.com/VOTRE_USERNAME/EstateHub.git
+cd EstateHub
