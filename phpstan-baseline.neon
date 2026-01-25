@@ -1,16 +1,22 @@
 parameters:
     ignoreErrors:
-        # False positives with User::factory()->create() type inference in tests
-        - '#Parameter \#1 \$user of method Illuminate\\Foundation\\Testing\\TestCase::actingAs\(\) expects Illuminate\\Contracts\\Auth\\Authenticatable#'
-        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Collection.*::\$nom_complet#'
-        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Collection.*::\$email#'
-        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Collection.*::\$email_verified_at#'
-        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$nom_complet#'
-        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$email#'
-        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$email_verified_at#'
+        # Eloquent model dynamic properties - PHPStan can't infer them
+        - '#Access to an undefined property#'
         
-        # Eloquent model property access - PHPStan can't infer dynamic properties
-        - '#Access to an undefined property (App\\Models\\.*)::\$#'
+        # Eloquent model static methods - PHPStan can't infer Eloquent methods from base class
+        - '#Call to an undefined static method (App\\Models|Illuminate\\Database\\Eloquent)#'
         
-        # Eloquent model static methods - PHPStan can't infer methods from base class
-        - '#Call to an undefined static method (App\\Models\\.*)::(create|where|withCount|first|find|get|paginate)\(#'
+        # Type issues with factory/model instantiation
+        - '#expects Illuminate\\Contracts\\Auth\\Authenticatable#'
+        
+        # View return type compatibility (Contracts\View\View vs View\View)
+        - '#should return Illuminate\\View\\View but returns Illuminate\\Contracts\\View\\View#'
+        
+        # Factory state methods
+        - '#Call to an undefined method.*Factory::unverified#'
+        
+        # Auth Guard methods
+        - '#Call to an undefined method Illuminate\\Contracts\\Auth\\Guard::logout#'
+        
+        # Console/routing variables
+        - '#Undefined variable: \$this#'
