@@ -34,12 +34,26 @@ jobs:
         restore-keys: ${{ runner.os }}-composer-
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-interaction
+      run: composer install --prefer-dist --no-interaction --with-all-dependencies
 
     - name: Run Laravel Pint (Code Style)
-      run: ./vendor/bin/pint --test
+      run: |
+        if [ -f ./vendor/bin/pint ]; then
+          ./vendor/bin/pint --test
+        else
+          echo "Pint not installed, installing..."
+          composer require --dev laravel/pint
+          ./vendor/bin/pint --test
+        fi
       continue-on-error: true
 
     - name: Run PHPStan (Static Analysis)
-      run: ./vendor/bin/phpstan analyse --memory-limit=512M
+      run: |
+        if [ -f ./vendor/bin/phpstan ]; then
+          ./vendor/bin/phpstan analyse --memory-limit=512M
+        else
+          echo "PHPStan not installed, installing..."
+          composer require --dev phpstan/phpstan nunomaduro/phpstan-laravel
+          ./vendor/bin/phpstan analyse --memory-limit=512M
+        fi
       continue-on-error: true
