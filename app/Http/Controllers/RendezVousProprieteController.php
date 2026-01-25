@@ -30,42 +30,48 @@ class RendezVousProprieteController extends Controller
      */
          
 // ✅ Formulaire réserver RDV (visiteur/client)
-    public function create(Propriete $propriete)
-    {
-          $agent = Auth::user();
-           $proprietes = Propriete::where('user_id', $agent->id)
-                               ->paginate(10);
-
-        // Optionnel : empêcher RDV sur bien non validé
-        if (!$propriete->valide) {
-            abort(404);
-        }
-
-        return view('rendez-vous.create', compact('propriete'));
+ public function create(Propriete $propriete)
+{
+    // 1) Visiteur => redirection login (plus d'erreur 500)
+    if (!Auth::check()) {
+        return redirect()->route('login')
+            ->with('error', 'Veuillez vous connecter pour planifier une visite.');
     }
+
+    // 2) Empêcher RDV sur bien non validé
+    if (!$propriete->valide) {
+        abort(404);
+    }
+
+    return view('rendez-vous.create', compact('propriete'));
+}
 
     // ✅ Sauvegarder RDV (visiteur/client)
-    public function store(Request $request, Propriete $propriete)
-    {
-        if (!$propriete->valide) {
-            abort(404);
-        }
-
-        $request->validate([
-            'date'  => 'required|date',
-            'heure' => 'required',
-        ]);
-       
-        RendezVousPropriete::create([
-            'propriete_id' => $propriete->id,
-            
-            'user_id'     => Auth::user()->id, // ✅ agent propriétaire du bien
-            'date_visite'     => $request->date . ' ' . $request->heure . ':00',
-            'statut'       => 'en_attente',
-        ]);
-
-        return redirect()->route('biens')->with('success', 'Rendez-vous réservé avec succès.');
+   public function store(Request $request, Propriete $propriete)
+{
+    if (!Auth::check()) {
+        return redirect()->route('login')
+            ->with('error', 'Veuillez vous connecter pour planifier une visite.');
     }
+
+    if (!$propriete->valide) {
+        abort(404);
+    }
+
+    $request->validate([
+        'date'  => 'required|date',
+        'heure' => 'required',
+    ]);
+
+    RendezVousPropriete::create([
+        'propriete_id' => $propriete->id,
+        'user_id'      => Auth::id(), // ✅ le client/visiteur connecté
+        'date_visite'  => $request->date . ' ' . $request->heure . ':00',
+        'statut'       => 'en_attente',
+    ]);
+
+    return redirect()->route('biens')->with('success', 'Rendez-vous réservé avec succès.');
+}
     /**
      * Display the specified resource.
      */

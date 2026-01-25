@@ -20,10 +20,7 @@
 
     <style>
         /* Bouton déconnexion dans le sub-header */
-        .logout-form {
-            display: inline-block;
-            margin: 0;
-        }
+        .logout-form { display: inline-block; margin: 0; }
 
         .logout-btn {
             background-color: #dc3545;
@@ -43,13 +40,9 @@
             transform: scale(1.05);
         }
 
-        .logout-btn i {
-            margin-right: 5px;
-        }
+        .logout-btn i { margin-right: 5px; }
 
-        .social-links li.logout-item {
-            margin-left: 10px;
-        }
+        .social-links li.logout-item { margin-left: 10px; }
 
         /* Supprimer le cercle noir du lien actif */
         .nav li a.active {
@@ -91,7 +84,6 @@
             <li><a href="#"><i class="fab fa-instagram"></i></a></li>
 
             @auth
-            <!-- Bouton déconnexion dans le sub-header -->
             <li class="logout-item">
               <form method="POST" action="{{ route('logout') }}" class="logout-form">
                 @csrf
@@ -113,45 +105,51 @@
         <div class="row">
             <div class="col-12">
                 <nav class="main-nav">
-                    <!-- ***** Logo Start ***** -->
                     <a href="{{ route('home') }}" class="logo">
                         <h1>EstateHUB</h1>
                     </a>
-                    <!-- ***** Logo End ***** -->
-                    <!-- ***** Menu Start ***** -->
-                    <ul class="nav">
-                        <li><a href="{{ route('home') }}" class="active">Accueil</a></li>
-                        <li><a href="{{ route('biens') }}">Annonces</a></li>
 
-                        @auth
-                            @if (auth()->user()->role === 'admin')
-                                <!-- Menu pour l'administrateur -->
-                                <li><a href="{{ route('agents.index') }}">Gestion des Agents</a></li>
-                                <li><a href="{{ route('types.index') }}">Gestion des Types</a></li>
-                                <li><a href="{{ route('categories.index') }}">Gestion des Catégories</a></li>
-                                <li></li> 
-                            @elseif (auth()->user()->role === 'agent')
-                                <!-- Menu pour l'agent -->
-                                <li><a href="{{ route('propriete.create') }}">Ajouter un bien</a></li>
-                                <li><a href="{{ route('biens') }}">Modifier mes biens</a></li>
-                                <li><a href="{{ route('rdv.index') }}">Mes RDV</a></li>
-                            @elseif (auth()->user()->role === 'client')
-                                <!-- Menu pour le client -->
-                                <li><a href="{{ route('contact') }}">Contactez-nous</a></li>
-                            @endif
-                        @else
-                            <!-- Menu pour les utilisateurs non connectés -->
-                            <li>
-                                <a href="{{ route('login') }}">
-                                    <i class="fa fa-user"></i> Se connecter
-                                </a>
-                            </li>
-                        @endauth
-                    </ul>
+                   <ul class="nav">
+    <li><a href="{{ route('home') }}" class="active">Accueil</a></li>
+    <li><a href="{{ route('biens') }}">Annonces</a></li>
+
+    @auth
+        @if(auth()->user()->role === 'agent')
+
+            <li><a href="{{ route('propriete.create') }}">Ajouter un bien</a></li>
+            <li><a href="{{ route('biens') }}">Mes biens</a></li>
+            <li><a href="{{ route('rdv.index') }}">Mes RDV</a></li>
+
+            <li>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                   
+                </form>
+            </li>
+
+        @elseif(auth()->user()->role === 'client')
+
+            <li><a href="{{ route('contact') }}">Contact</a></li>
+
+        @elseif(auth()->user()->role === 'admin')
+
+            <li><a href="{{ route('agents.index') }}">Agents</a></li>
+            <li><a href="{{ route('types.index') }}">Types</a></li>
+            <li><a href="{{ route('categories.index') }}">Catégories</a></li>
+
+        @endif
+    @else
+        <li>
+            <a href="{{ route('login') }}">
+                <i class="fa fa-user"></i> Se connecter
+            </a>
+        </li>
+    @endauth
+</ul>
+
                     <a class='menu-trigger'>
                         <span>Menu</span>
                     </a>
-                    <!-- ***** Menu End ***** -->
                 </nav>
             </div>
         </div>
@@ -202,7 +200,6 @@
           </div>
 
           <div class="accordion" id="accordionExample">
-            <!-- Item 1 -->
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
@@ -219,7 +216,6 @@
               </div>
             </div>
 
-            <!-- Item 2 -->
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingTwo">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -236,7 +232,6 @@
               </div>
             </div>
 
-            <!-- Item 3 -->
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingThree">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -291,23 +286,27 @@
             <h2>Trouvez la meilleure offre dès maintenant !</h2>
           </div>
         </div>
+
         <div class="col-lg-12">
           <div class="tabs-content">
             <div class="row">
               <div class="nav-wrapper">
                 <ul class="nav nav-tabs" role="tablist">
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="appartment-tab" data-bs-toggle="tab" data-bs-target="#appartment" type="button" role="tab" aria-controls="appartment" aria-selected="true">
+                    <button class="nav-link active" id="appartment-tab" data-bs-toggle="tab" data-bs-target="#appartment"
+                            type="button" role="tab" aria-controls="appartment" aria-selected="true">
                       Appartement
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="villa-tab" data-bs-toggle="tab" data-bs-target="#villa" type="button" role="tab" aria-controls="villa" aria-selected="false">
+                    <button class="nav-link" id="villa-tab" data-bs-toggle="tab" data-bs-target="#villa"
+                            type="button" role="tab" aria-controls="villa" aria-selected="false">
                       Villa
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="penthouse-tab" data-bs-toggle="tab" data-bs-target="#penthouse" type="button" role="tab" aria-controls="penthouse" aria-selected="false">
+                    <button class="nav-link" id="penthouse-tab" data-bs-toggle="tab" data-bs-target="#penthouse"
+                            type="button" role="tab" aria-controls="penthouse" aria-selected="false">
                       Penthouse
                     </button>
                   </li>
@@ -364,12 +363,20 @@
                     <div class="col-lg-3">
                       <h4>Détails sur la villa</h4>
                       <p>
-                          Appartement spacieux et bien situé, offrant confort, sécurité et prestations modernes.
-                          Une opportunité idéale pour habiter ou investir.
+                        Appartement spacieux et bien situé, offrant confort, sécurité et prestations modernes.
+                        Une opportunité idéale pour habiter ou investir.
                       </p>
+
                       <div class="icon-button">
-                        <a href="property-details.html"><i class="fa fa-calendar"></i> Planifier une visite</a>
+                        @auth
+                          <a href="{{ route('biens') }}"><i class="fa fa-calendar"></i> Voir les annonces</a>
+                        @else
+                          <a href="#" data-toggle="modal" data-target="#loginRequiredModal" data-bs-toggle="modal" data-bs-target="#loginRequiredModal">
+                            <i class="fa fa-calendar"></i> Planifier une visite
+                          </a>
+                        @endauth
                       </div>
+
                     </div>
                   </div>
                 </div>
@@ -400,12 +407,13 @@
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
+              </div><!-- tab-content -->
+            </div><!-- row -->
+          </div><!-- tabs-content -->
+        </div><!-- col -->
+      </div><!-- row -->
+    </div><!-- container -->
   </div>
 
   <!-- ***** Properties ***** -->
@@ -430,9 +438,7 @@
 
           <div class="col-lg-4 col-md-6 mb-30 properties-items">
             <div class="item">
-              <a href="#">
-                <img src="{{ $imgUrl }}" alt="propriete">
-              </a>
+              <a href="#"><img src="{{ $imgUrl }}" alt="propriete"></a>
 
               <span class="category">{{ $propriete->typePropriete->nom_type ?? 'Type' }}</span>
               <h6>{{ number_format($propriete->prix, 0, ',', ' ') }} MAD</h6>
@@ -466,9 +472,12 @@
                     </form>
                   @endif
                 @else
-                  <a href="{{ route('rdv.create', $propriete->id) }}">Planifier une visite</a>
+                  <a href="#" data-toggle="modal" data-target="#loginRequiredModal" data-bs-toggle="modal" data-bs-target="#loginRequiredModal">
+                    Planifier une visite
+                  </a>
                 @endauth
               </div>
+
             </div>
           </div>
         @endforeach
@@ -480,6 +489,31 @@
         <li><a href="#">3</a></li>
         <li><a href="#">>></a></li>
       </ul>
+    </div>
+  </div>
+
+  <!-- ✅ MODAL : Connexion requise -->
+  <div class="modal fade" id="loginRequiredModal" tabindex="-1" role="dialog" aria-labelledby="loginRequiredModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginRequiredModalLabel">Connexion requise</h5>
+          <button type="button" class="close btn-close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Fermer">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          Pour planifier une visite, veuillez vous connecter ou créer un compte.
+        </div>
+
+        <div class="modal-footer">
+          <a href="{{ route('register') }}" class="btn btn-outline-primary">Créer un compte</a>
+          <a href="{{ route('login') }}" class="btn btn-primary">Se connecter</a>
+        </div>
+
+      </div>
     </div>
   </div>
 
@@ -502,8 +536,11 @@
       <div class="row">
         <div class="col-lg-7">
           <div id="map">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12469.776493332698!2d-80.14036379941481!3d25.907788681148624!2m3!1f357.26927939317244!2f20.870722720054623!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x88d9add4b4ac788f%3A0xe77469d09480fcdb!2sSunny%20Isles%20Beach!5e1!3m2!1sen!2sth!4v1642869952544!5m2!1sen!2sth" width="100%" height="500px" frameborder="0" style="border:0; border-radius: 10px; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);" allowfullscreen=""></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12469.776493332698!2d-80.14036379941481!3d25.907788681148624!2m3!1f357.26927939317244!2f20.870722720054623!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x88d9add4b4ac788f%3A0xe77469d09480fcdb!2sSunny%20Isles%20Beach!5e1!3m2!1sen!2sth!4v1642869952544!5m2!1sen!2sth"
+                    width="100%" height="500px" frameborder="0"
+                    style="border:0; border-radius: 10px; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);" allowfullscreen=""></iframe>
           </div>
+
           <div class="row">
             <div class="col-lg-6">
               <div class="item phone">
@@ -519,6 +556,7 @@
             </div>
           </div>
         </div>
+
         <div class="col-lg-5">
           <form id="contact-form" action="" method="post">
             <div class="row">
