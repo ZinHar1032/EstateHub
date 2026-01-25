@@ -1,0 +1,10 @@
+parameters:
+    ignoreErrors:
+        # False positives with User::factory()->create() type inference in tests
+        - '#Parameter \#1 \$user of method Illuminate\\Foundation\\Testing\\TestCase::actingAs\(\) expects Illuminate\\Contracts\\Auth\\Authenticatable#'
+        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Collection.*::\$nom_complet#'
+        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Collection.*::\$email#'
+        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Collection.*::\$email_verified_at#'
+        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$nom_complet#'
+        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$email#'
+        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$email_verified_at#'

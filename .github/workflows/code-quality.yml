@@ -53,7 +53,7 @@ jobs:
           ./vendor/bin/phpstan analyse --memory-limit=512M
         else
           echo "PHPStan not installed, installing..."
-          composer require --dev phpstan/phpstan nunomaduro/phpstan-laravel
+          composer require --dev phpstan/phpstan
           ./vendor/bin/phpstan analyse --memory-limit=512M
         fi
       continue-on-error: true
