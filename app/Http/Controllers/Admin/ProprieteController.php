@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Propriete;
 use App\Models\CategoriePropriete;
+use App\Models\Propriete;
 use App\Models\TypePropriete;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -15,6 +15,7 @@ class ProprieteController extends Controller
     public function index()
     {
         $proprietes = Propriete::with(['user', 'categoriePropriete', 'typePropriete'])->paginate(10);
+
         return view('admin.proprietes.index', compact('proprietes'));
     }
 
@@ -23,6 +24,7 @@ class ProprieteController extends Controller
         $agents = User::where('role', 'agent')->get();
         $categories = CategoriePropriete::all();
         $typeProprietes = TypePropriete::all();
+
         return view('admin.proprietes.create', compact('agents', 'categories', 'typeProprietes'));
     }
 
@@ -68,6 +70,7 @@ class ProprieteController extends Controller
         $categories = CategoriePropriete::all();
         $typeProprietes = TypePropriete::all();
         $propriete->load('images');
+
         return view('admin.proprietes.edit', compact('propriete', 'agents', 'categories', 'typeProprietes'));
     }
 
@@ -96,7 +99,7 @@ class ProprieteController extends Controller
         if ($request->hasFile('images')) {
             $existingCount = $propriete->images()->count();
             $maxNew = 5 - $existingCount;
-            
+
             if ($maxNew > 0) {
                 foreach (array_slice($request->file('images'), 0, $maxNew) as $index => $image) {
                     $path = $image->store('proprietes', 'public');
@@ -118,12 +121,14 @@ class ProprieteController extends Controller
             Storage::disk('public')->delete($image->chemin_image);
         }
         $propriete->delete();
+
         return redirect()->route('admin.proprietes.index')->with('success', 'Propriété supprimée avec succès');
     }
 
     public function toggleValidation(Propriete $propriete)
     {
-        $propriete->update(['valide' => !$propriete->valide]);
+        $propriete->update(['valide' => ! $propriete->valide]);
+
         return back()->with('success', 'Validation modifiée avec succès');
     }
 }

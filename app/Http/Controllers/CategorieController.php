@@ -16,14 +16,14 @@ class CategorieController extends Controller
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
-        
+
         $categories = CategoriePropriete::withCount('proprietes')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-        
+
         return view('admin.categories.index', compact('categories'));
     }
-    
+
     /**
      * Afficher le formulaire de création
      */
@@ -32,10 +32,10 @@ class CategorieController extends Controller
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
-        
+
         return view('admin.categories.create');
     }
-    
+
     /**
      * Enregistrer une nouvelle catégorie
      */
@@ -44,19 +44,19 @@ class CategorieController extends Controller
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
-        
+
         $validated = $request->validate([
             'nom_categorie' => 'required|string|max:100|unique:categorie_proprietes',
             'actif' => 'required|boolean',
             'dispo' => 'required|boolean',
         ]);
-        
+
         CategoriePropriete::create($validated);
-        
+
         return redirect()->route('categories.index')
             ->with('success', 'Catégorie créée avec succès!');
     }
-    
+
     /**
      * Afficher le formulaire d'édition
      */
@@ -65,11 +65,12 @@ class CategorieController extends Controller
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
-        
+
         $categorie = CategoriePropriete::withCount('proprietes')->findOrFail($id);
+
         return view('admin.categories.edit', compact('categorie'));
     }
-    
+
     /**
      * Mettre à jour une catégorie
      */
@@ -78,21 +79,21 @@ class CategorieController extends Controller
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
-        
+
         $categorie = CategoriePropriete::findOrFail($id);
-        
+
         $validated = $request->validate([
-            'nom_categorie' => 'required|string|max:100|unique:categorie_proprietes,nom_categorie,' . $categorie->id,
+            'nom_categorie' => 'required|string|max:100|unique:categorie_proprietes,nom_categorie,'.$categorie->id,
             'actif' => 'required|boolean',
             'dispo' => 'required|boolean',
         ]);
-        
+
         $categorie->update($validated);
-        
+
         return redirect()->route('categories.index')
             ->with('success', 'Catégorie mise à jour avec succès!');
     }
-    
+
     /**
      * Supprimer une catégorie
      */
@@ -101,17 +102,17 @@ class CategorieController extends Controller
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
-        
+
         $categorie = CategoriePropriete::findOrFail($id);
-        
+
         // Vérifier si la catégorie est utilisée
         if ($categorie->proprietes()->count() > 0) {
             return redirect()->route('categories.index')
                 ->with('error', 'Impossible de supprimer cette catégorie car elle est utilisée par des propriétés.');
         }
-        
+
         $categorie->delete();
-        
+
         return redirect()->route('categories.index')
             ->with('success', 'Catégorie supprimée avec succès!');
     }

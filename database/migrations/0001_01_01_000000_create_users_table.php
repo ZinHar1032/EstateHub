@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            
+
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -40,7 +40,7 @@ return new class extends Migration
             $table->integer('last_activity')->index();
         });
     }
-     
+
     /**
      * Reverse the migrations.
      */

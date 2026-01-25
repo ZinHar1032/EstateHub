@@ -52,9 +52,10 @@ class Propriete extends Model
     {
         return $this->hasMany(RendezVousPropriete::class);
     }
+
     public function imagePrincipale()
     {
         return $this->hasOne(ImagePropriete::class)
-                    ->where('principale', true);
+            ->where('principale', true);
     }
 }

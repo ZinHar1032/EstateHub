@@ -1,17 +1,14 @@
 <?php
 
-use App\Models\Propriete;
-use App\Models\RendezVousPropriete;
-use App\Http\Controllers\RendezVousPublicController;
-use App\Http\Controllers\RendezVousProprieteController;
-use App\Http\Controllers\ProprieteController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AgentController;
-use App\Http\Controllers\TypeController;
 use App\Http\Controllers\CategorieController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProprieteController;
+use App\Http\Controllers\RendezVousProprieteController;
+use App\Http\Controllers\TypeController;
+use App\Models\Propriete;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Route;
 
 // 🟢 HOME PUBLIC (pas besoin d'auth)
 Route::get('/', [ProprieteController::class, 'home'])->name('home');
@@ -24,12 +21,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
     Route::get('/dashboard', function () {
         $user = Auth::user();
-        if ($user->role === 'admin') { return view('dashboard.admin'); }
-        if ($user->role === 'agent') { return view('dashboard.agent'); }
-        if ($user->role === 'client') { return view('dashboard.client'); }
+        if ($user->role === 'admin') {
+            return view('dashboard.admin');
+        }
+        if ($user->role === 'agent') {
+            return view('dashboard.agent');
+        }
+        if ($user->role === 'client') {
+            return view('dashboard.client');
+        }
+
         return view('home'); // ou welcome
     })->name('dashboard');
 
@@ -66,7 +70,6 @@ Route::middleware(['auth'])->group(function () {
 
     })->name('propriete.edit');
 
-
     // =========================
     // 🔹 MODIFIER (ENREGISTRER)
     // =========================
@@ -84,7 +87,6 @@ Route::middleware(['auth'])->group(function () {
 
     })->name('propriete.update');
 
-
     // =========================
     // 🔹 AJOUT
     // =========================
@@ -98,7 +100,6 @@ Route::middleware(['auth'])->group(function () {
 
     })->name('propriete.create');
 
-
     Route::post('/ajout-propriete', function () {
 
         if (Auth::user()->role !== 'agent') {
@@ -109,7 +110,6 @@ Route::middleware(['auth'])->group(function () {
 
     })->name('propriete.store');
 
-
     // =========================
     // 🔹 GESTION DES AGENTS (ADMIN)
     // =========================
@@ -117,6 +117,7 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
+
         return app(AgentController::class)->index();
     })->name('agents.index');
 
@@ -124,13 +125,15 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
+
         return app(AgentController::class)->create();
     })->name('agents.create');
-    
+
     Route::post('/nouveau-agent', function () {
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
+
         return app(AgentController::class)->store(request());
     })->name('agents.store');
 
@@ -138,6 +141,7 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
+
         return app(AgentController::class)->edit($agent);
     })->name('agents.edit');
 
@@ -145,9 +149,9 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
+
         return app(AgentController::class)->update(request(), $agent);
     })->name('agents.update');
-
 
     // =========================
     // 🔹 GESTION DES TYPES (ADMIN)
@@ -156,6 +160,7 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
+
         return app(TypeController::class)->index();
     })->name('types.index');
 
@@ -163,6 +168,7 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
+
         return app(TypeController::class)->create();
     })->name('types.create');
 
@@ -170,6 +176,7 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
+
         return app(TypeController::class)->store(request());
     })->name('types.store');
 
@@ -177,6 +184,7 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
+
         return app(TypeController::class)->edit($type);
     })->name('types.edit');
 
@@ -184,6 +192,7 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
+
         return app(TypeController::class)->update(request(), $type);
     })->name('types.update');
 
@@ -191,9 +200,9 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
+
         return app(TypeController::class)->destroy($type);
     })->name('types.destroy');
-
 
     // =========================
     // 🔹 GESTION DES CATEGORIES (ADMIN)
@@ -202,6 +211,7 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
+
         return app(CategorieController::class)->index();
     })->name('categories.index');
 
@@ -209,6 +219,7 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
+
         return app(CategorieController::class)->create();
     })->name('categories.create');
 
@@ -216,6 +227,7 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
+
         return app(CategorieController::class)->store(request());
     })->name('categories.store');
 
@@ -223,6 +235,7 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
+
         return app(CategorieController::class)->edit($categorie);
     })->name('categories.edit');
 
@@ -230,6 +243,7 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
+
         return app(CategorieController::class)->update(request(), $categorie);
     })->name('categories.update');
 
@@ -237,6 +251,7 @@ Route::middleware(['auth'])->group(function () {
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
+
         return app(CategorieController::class)->destroy($categorie);
     })->name('categories.destroy');
 });
@@ -255,7 +270,6 @@ Route::middleware(['auth'])->group(function () {
 
 Route::post('/rendez-vous/store/{propriete}', [RendezVousProprieteController::class, 'store'])
     ->name('rendez-vous.store');
-
 
 // 🔐 AUTH (Breeze)
 require __DIR__.'/auth.php';

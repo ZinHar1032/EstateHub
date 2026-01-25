@@ -11,6 +11,7 @@ class CategorieController extends Controller
     public function index()
     {
         $categories = CategoriePropriete::withCount('proprietes')->paginate(10);
+
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -44,7 +45,7 @@ class CategorieController extends Controller
     public function update(Request $request, CategoriePropriete $categorie)
     {
         $validated = $request->validate([
-            'nom_categorie' => 'required|string|max:255|unique:categorie_proprietes,nom_categorie,' . $categorie->id,
+            'nom_categorie' => 'required|string|max:255|unique:categorie_proprietes,nom_categorie,'.$categorie->id,
             'actif' => 'nullable|boolean',
             'dispo' => 'nullable|boolean',
         ]);
@@ -64,6 +65,7 @@ class CategorieController extends Controller
             return back()->with('error', 'Impossible de supprimer une catégorie liée à des propriétés');
         }
         $categorie->delete();
+
         return redirect()->route('admin.categories.index')->with('success', 'Catégorie supprimée avec succès');
     }
 }

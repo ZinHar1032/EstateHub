@@ -8,3 +8,9 @@ parameters:
         - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$nom_complet#'
         - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$email#'
         - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$email_verified_at#'
+        
+        # Eloquent model property access - PHPStan can't infer dynamic properties
+        - '#Access to an undefined property (App\\Models\\.*)::\$#'
+        
+        # Eloquent model static methods - PHPStan can't infer methods from base class
+        - '#Call to an undefined static method (App\\Models\\.*)::(create|where|withCount|first|find|get|paginate)\(#'

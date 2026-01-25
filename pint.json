@@ -1,14 +1,3 @@
 {
-    "preset": "laravel",
-    "rules": {
-        "@Laravel": true,
-        "@PSR12": true
-    },
-    "exclude": [
-        "bootstrap/cache",
-        "storage",
-        "vendor",
-        "node_modules",
-        "public"
-    ]
+    "preset": "laravel"
 }

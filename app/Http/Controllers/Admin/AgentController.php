@@ -13,6 +13,7 @@ class AgentController extends Controller
         $agents = User::where('role', 'agent')
             ->withCount('proprietes')
             ->paginate(10);
+
         return view('admin.agents.index', compact('agents'));
     }
 
@@ -48,6 +49,7 @@ class AgentController extends Controller
         if ($agent->role !== 'agent') {
             abort(404);
         }
+
         return view('admin.agents.edit', compact('agent'));
     }
 
@@ -59,7 +61,7 @@ class AgentController extends Controller
 
         $validated = $request->validate([
             'nom_complet' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $agent->id,
+            'email' => 'required|email|unique:users,email,'.$agent->id,
             'tel' => 'nullable|string|max:255',
             'ville' => 'nullable|string|max:255',
             'password' => 'nullable|min:8',
@@ -85,6 +87,7 @@ class AgentController extends Controller
             abort(404);
         }
         $agent->delete();
+
         return redirect()->route('admin.agents.index')->with('success', 'Agent supprimé avec succès');
     }
 }

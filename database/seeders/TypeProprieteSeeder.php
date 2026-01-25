@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\TypePropriete;
+use Illuminate\Database\Seeder;
 
 class TypeProprieteSeeder extends Seeder
 {

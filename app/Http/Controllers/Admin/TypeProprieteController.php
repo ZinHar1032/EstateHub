@@ -11,6 +11,7 @@ class TypeProprieteController extends Controller
     public function index()
     {
         $typeProprietes = TypePropriete::withCount('proprietes')->paginate(10);
+
         return view('admin.type-proprietes.index', compact('typeProprietes'));
     }
 
@@ -44,7 +45,7 @@ class TypeProprieteController extends Controller
     public function update(Request $request, TypePropriete $typePropriete)
     {
         $validated = $request->validate([
-            'nom_type' => 'required|string|max:255|unique:type_proprietes,nom_type,' . $typePropriete->id,
+            'nom_type' => 'required|string|max:255|unique:type_proprietes,nom_type,'.$typePropriete->id,
             'description' => 'nullable|string',
             'actif' => 'nullable|boolean',
         ]);
@@ -61,6 +62,7 @@ class TypeProprieteController extends Controller
     public function destroy(TypePropriete $typePropriete)
     {
         $typePropriete->delete();
+
         return redirect()->route('admin.type-proprietes.index')->with('success', 'Type de propriété supprimé avec succès');
     }
 }

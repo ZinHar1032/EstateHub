@@ -10,15 +10,14 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-   protected $fillable = [
-    'nom_complet',
-    'email',
-    'tel',
-    'ville',
-    'role',
-    'password',
-];
-
+    protected $fillable = [
+        'nom_complet',
+        'email',
+        'tel',
+        'ville',
+        'role',
+        'password',
+    ];
 
     protected $hidden = [
         'password',
@@ -41,12 +40,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Propriete::class, 'user_id');
     }
-    public function rendezVousProprietes()
-{
-    return $this->hasMany(RendezVousPropriete::class);
 
-}
- public function isAdmin(): bool
+    public function rendezVousProprietes()
+    {
+        return $this->hasMany(RendezVousPropriete::class);
+
+    }
+
+    public function isAdmin(): bool
     {
         return $this->role === 'admin';
     }
@@ -60,5 +61,4 @@ class User extends Authenticatable
     {
         return $this->role === 'client';
     }
-
 }

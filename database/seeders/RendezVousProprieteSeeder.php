@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Carbon\Carbon;
-use App\Models\User;
 use App\Models\Propriete;
 use App\Models\RendezVousPropriete;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Database\Seeder;
 
 class RendezVousProprieteSeeder extends Seeder
 {

@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 
 class TypeProprieteController extends Controller
 {
-    
-   
     public function index()
     {
         return TypePropriete::orderBy('nom_type')->get();
@@ -24,6 +22,7 @@ class TypeProprieteController extends Controller
 
         return TypePropriete::create($data);
     }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -31,11 +30,6 @@ class TypeProprieteController extends Controller
     {
         //
     }
-
-    /**
-   
-  
-        */
 
     /**
      * Display the specified resource.

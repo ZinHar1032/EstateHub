@@ -11,21 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-       Schema::create('image_proprietes', function (Blueprint $table) {
-    $table->engine = 'InnoDB';
+        Schema::create('image_proprietes', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
 
-    $table->id();
+            $table->id();
 
-    $table->foreignId('propriete_id')
-          ->constrained('proprietes')
-          ->cascadeOnDelete();
+            $table->foreignId('propriete_id')
+                ->constrained('proprietes')
+                ->cascadeOnDelete();
 
-    $table->string('chemin_image');
-    $table->boolean('principale')->default(false);
-    $table->integer('ordre')->default(0);
+            $table->string('chemin_image');
+            $table->boolean('principale')->default(false);
+            $table->integer('ordre')->default(0);
 
-    $table->timestamps();
-});
+            $table->timestamps();
+        });
     }
 
     /**

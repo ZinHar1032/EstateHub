@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('commentaire')->nullable();
 
             $table->enum('statut', ['en_attente', 'confirme', 'annule', 'effectue'])
-                  ->default('en_attente');
+                ->default('en_attente');
 
             $table->timestamps();
 

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Models\Propriete;
 use App\Models\CategoriePropriete;
-use App\Models\TypePropriete;
+use App\Models\Propriete;
 use App\Models\RendezVousPropriete;
+use App\Models\TypePropriete;
+use App\Models\User;
 
 class DashboardController extends Controller
 {

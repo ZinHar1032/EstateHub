@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\Propriete;
-use App\Models\User;
-use App\Models\TypePropriete;
 use App\Models\CategoriePropriete;
+use App\Models\Propriete;
+use App\Models\TypePropriete;
+use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class ProprieteSeeder extends Seeder
 {
@@ -17,11 +17,11 @@ class ProprieteSeeder extends Seeder
 
         // Types
         $typeAppartement = TypePropriete::where('nom_type', 'Appartement')->firstOrFail();
-        $typeVilla       = TypePropriete::where('nom_type', 'Villa')->firstOrFail();
+        $typeVilla = TypePropriete::where('nom_type', 'Villa')->firstOrFail();
 
         // Catégories
         $catVente = CategoriePropriete::where('nom_categorie', 'Vente')->firstOrFail();
-        $catLuxe  = CategoriePropriete::where('nom_categorie', 'Luxe')->firstOrFail();
+        $catLuxe = CategoriePropriete::where('nom_categorie', 'Luxe')->firstOrFail();
 
         // ======================
         // APPARTEMENTS

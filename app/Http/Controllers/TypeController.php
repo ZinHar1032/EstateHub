@@ -18,12 +18,12 @@ class TypeController extends Controller
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
-        
+
         $types = TypePropriete::orderBy('created_at', 'desc')->paginate(10);
-        
+
         return view('admin.types.index', compact('types'));
     }
-    
+
     /**
      * Afficher le formulaire de création d'un type
      */
@@ -32,10 +32,10 @@ class TypeController extends Controller
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
-        
+
         return view('admin.types.create');
     }
-    
+
     /**
      * Enregistrer un nouveau type
      */
@@ -44,31 +44,31 @@ class TypeController extends Controller
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
-        
+
         $validated = $request->validate([
             'nom_type' => 'required|string|max:100|unique:type_proprietes',
             'description' => 'nullable|string|max:500',
             'actif' => 'required|boolean',
         ]);
-        
+
         TypePropriete::create($validated);
-        
+
         return redirect()->route('types.index')
             ->with('success', 'Type créé avec succès!');
     }
-    
+
     /**
      * Afficher le formulaire d'édition d'un type
      */
-    public function edit(TypePropriete  $type)
+    public function edit(TypePropriete $type)
     {
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
-        
+
         return view('admin.types.edit', compact('type'));
     }
-    
+
     /**
      * Mettre à jour un type
      */
@@ -77,19 +77,19 @@ class TypeController extends Controller
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
-        
+
         $validated = $request->validate([
-            'nom_type' => 'required|string|max:100|unique:type_proprietes,nom_type,' . $type->id,
+            'nom_type' => 'required|string|max:100|unique:type_proprietes,nom_type,'.$type->id,
             'description' => 'nullable|string|max:500',
             'actif' => 'required|boolean',
         ]);
-        
+
         $type->update($validated);
-        
+
         return redirect()->route('types.index')
             ->with('success', 'Type mis à jour avec succès!');
     }
-    
+
     /**
      * Supprimer un type
      */
@@ -98,9 +98,9 @@ class TypeController extends Controller
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
-        
+
         $type->delete();
-        
+
         return redirect()->route('types.index')
             ->with('success', 'Type supprimé avec succès!');
     }

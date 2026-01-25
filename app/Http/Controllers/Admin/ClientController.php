@@ -11,6 +11,7 @@ class ClientController extends Controller
     public function index()
     {
         $clients = User::where('role', 'client')->paginate(10);
+
         return view('admin.clients.index', compact('clients'));
     }
 
@@ -46,6 +47,7 @@ class ClientController extends Controller
         if ($client->role !== 'client') {
             abort(404);
         }
+
         return view('admin.clients.edit', compact('client'));
     }
 
@@ -57,7 +59,7 @@ class ClientController extends Controller
 
         $validated = $request->validate([
             'nom_complet' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $client->id,
+            'email' => 'required|email|unique:users,email,'.$client->id,
             'tel' => 'nullable|string|max:255',
             'ville' => 'nullable|string|max:255',
             'password' => 'nullable|min:8',
@@ -83,6 +85,7 @@ class ClientController extends Controller
             abort(404);
         }
         $client->delete();
+
         return redirect()->route('admin.clients.index')->with('success', 'Client supprimé avec succès');
     }
 }

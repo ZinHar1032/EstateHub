@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoriePropriete;
 use App\Models\Propriete;
 use App\Models\TypePropriete;
-use App\Models\CategoriePropriete;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -90,6 +90,7 @@ class ProprieteController extends Controller
     public function show(Propriete $propriete)
     {
         $propriete->load(['typePropriete', 'categoriePropriete', 'images', 'imagePrincipale', 'user']);
+
         return view('biens.show', compact('propriete'));
     }
 
@@ -141,11 +142,11 @@ class ProprieteController extends Controller
     // ✅ Admin : valider / invalider une propriété
     public function toggleValidation(Propriete $propriete)
     {
-        if (!Auth::check() || Auth::user()->role !== 'admin') {
+        if (! Auth::check() || Auth::user()->role !== 'admin') {
             abort(403, 'Accès réservé aux administrateurs');
         }
 
-        $propriete->valide = !$propriete->valide;
+        $propriete->valide = ! $propriete->valide;
         $propriete->save();
 
         return redirect()->back()->with('success', 'Statut de validation mis à jour.');

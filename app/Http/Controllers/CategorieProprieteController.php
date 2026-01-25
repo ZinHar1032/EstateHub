@@ -37,7 +37,6 @@ class CategorieProprieteController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-   
 
     /**
      * Display the specified resource.
